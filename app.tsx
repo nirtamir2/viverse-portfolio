@@ -6,15 +6,14 @@ import {
   FixedBvhPhysicsBody,
   PrototypeBox,
   SimpleCharacter,
-  useViverseProfile,
-  Viverse
+  BvhPhysicsWorld,
 } from "@react-three/viverse";
 import { Suspense, useRef } from "react";
 import { Group, Object3D } from "three";
 
 export function App() {
   return (
-    <Viverse clientId={import.meta.env.VITE_VIVERSE_APP_ID}>
+    <BvhPhysicsWorld>
       <Canvas
         style={{ width: "100%", flexGrow: 1 }}
         camera={{ fov: 90, position: [0, 2, 2] }}
@@ -28,17 +27,10 @@ export function App() {
             </Fullscreen>
           }
         >
-          <Fullscreen
-            alignItems="flex-end"
-            justifyContent="flex-end"
-            padding={32}
-          >
-            <Image src="viverse-logo.png" height={64} />
-          </Fullscreen>
           <Scene />
         </Suspense>
       </Canvas>
-    </Viverse>
+    </BvhPhysicsWorld>
   );
 }
 
@@ -71,26 +63,12 @@ export function Scene() {
         ref={characterRef}
         model={
           {
-          url: "avaturn_avatar.vrm",
-          type: "vrm",
-          castShadow: true,
-          receiveShadow: true,
+            url: "avaturn_avatar.vrm",
+            type: "vrm",
+            castShadow: true,
+            receiveShadow: true,
+          }
         }
-        //   {
-        //   url: "nir.glb",
-        //   type: "gltf",
-        //   castShadow: true,
-        //   receiveShadow: true,
-        // }
-      }
-
-      
-        // animation={{
-        //   walk: {
-        //     type: "mixamo",
-        //     url: "/animations/walking.fbx",
-        //   },
-        // }}
       >
         <PlayerTag />
         <CharacterModelBone bone="rightHand">
@@ -147,9 +125,9 @@ export function Scene() {
 }
 
 function PlayerTag() {
-  const profile = useViverseProfile() ?? {
-    name: "Anonymous",
-    activeAvatar: { headIconUrl: "https://picsum.photos/200" },
+  const profile = {
+    name: "Nir Tamir",
+    activeAvatar: { headIconUrl: "https://nirtamir.com/me" },
   };
   const ref = useRef<Object3D>(null);
   useFrame((state) => {
