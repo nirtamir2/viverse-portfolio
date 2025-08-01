@@ -1,4 +1,14 @@
-import { Gltf, Sky } from "@react-three/drei";
+import {
+  Box,
+  Float,
+  Gltf,
+  MeshDistortMaterial,
+  MeshWobbleMaterial,
+  Sky,
+  Sphere,
+  Text3D,
+  Torus
+} from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Fullscreen, Image, Root, Text } from "@react-three/uikit";
 import {
@@ -8,9 +18,8 @@ import {
   PrototypeBox,
   SimpleCharacter,
 } from "@react-three/viverse";
-import { Suspense, useRef } from "react";
-import { Group, Object3D } from "three";
-import { SomeText } from "./SomeText";
+import { Suspense, useMemo, useRef } from "react";
+import { Color, Group, Object3D, Vector3 } from "three";
 
 export function App() {
   return (
@@ -125,6 +134,9 @@ export function Scene() {
           src="/macbook.glb"
         />
       </FixedBvhPhysicsBody>
+      <Animated3DText />
+      <FloatingGeometry />
+      
     </>
   );
 }
@@ -165,6 +177,95 @@ function PlayerTag() {
           {profile.name}
         </Text>
       </Root>
+    </group>
+  );
+}
+
+function Animated3DText() {
+  const textRef = useRef<Group>(null);
+
+  return (
+    <Float speed={2} rotationIntensity={0.1} floatIntensity={0.2}>
+      <group ref={textRef} position={[0, 1, -4]}>
+        <Text3D
+          font="/font/Inter_Regular.json"
+          bevelEnabled
+          bevelSize={0.02}
+          bevelThickness={0.01}
+          height={0.1}
+          letterSpacing={0.05}
+          size={0.8}
+        >
+          Welcome to
+          <MeshDistortMaterial
+            color="#6bffb3ff"
+            transparent
+            opacity={0.9}
+            distort={0.2}
+            speed={3}
+            roughness={0}
+            metalness={0.5}
+          />
+        </Text3D>
+        <Text3D
+          font="/font/Inter_Regular.json"
+          bevelEnabled
+          bevelSize={0.02}
+          bevelThickness={0.01}
+          height={0.1}
+          letterSpacing={0.05}
+          size={1.2}
+          position={[0, -1.5, 0]}
+        >
+          Nir Tamir
+          <MeshDistortMaterial
+            color="#4ecdc4"
+            transparent
+            opacity={0.9}
+            distort={0.3}
+            speed={2}
+            roughness={0}
+            metalness={0.7}
+          />
+        </Text3D>
+      </group>
+    </Float>
+  );
+}
+
+function FloatingGeometry() {
+  const geometries = useMemo(() => {
+    return Array.from({ length: 12 }, (_, i) => ({
+      position: [
+        Math.cos((i / 12) * Math.PI * 2) * 12,
+        Math.random() * 6 + 2,
+        Math.sin((i / 12) * Math.PI * 2) * 12,
+      ] as [number, number, number],
+      type: i % 3,
+      color: new Color().setHSL((i / 12), 0.7, 0.6),
+    }));
+  }, []);
+
+  return (
+    <group>
+      {geometries.map((geo, i) => (
+        <Float key={i} speed={1 + Math.random()} rotationIntensity={1} floatIntensity={0.5}>
+          <mesh position={geo.position} castShadow>
+            {geo.type === 0 && <Torus args={[1, 0.3, 16, 100]} />}
+            {geo.type === 1 && <Box args={[1.5, 1.5, 1.5]} />}
+            {geo.type === 2 && <Sphere args={[1, 32, 32]} />}
+            <MeshWobbleMaterial
+              color={geo.color}
+              transparent
+              opacity={0.6}
+              factor={0.4}
+              speed={2}
+              roughness={0.2}
+              metalness={0.8}
+            />
+          </mesh>
+        </Float>
+      ))}
     </group>
   );
 }
