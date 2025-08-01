@@ -13,24 +13,24 @@ import { Group, Object3D } from "three";
 
 export function App() {
   return (
-    <BvhPhysicsWorld>
-      <Canvas
-        style={{ width: "100%", flexGrow: 1 }}
-        camera={{ fov: 90, position: [0, 2, 2] }}
-        shadows
-        gl={{ antialias: true, localClippingEnabled: true }}
-      >
+    <Canvas
+    style={{ width: "100%", flexGrow: 1 }}
+    camera={{ fov: 90, position: [0, 2, 2] }}
+    shadows
+    gl={{ antialias: true, localClippingEnabled: true }}
+    >
         <Suspense
           fallback={
             <Fullscreen alignItems="center" justifyContent="center">
               <Text>Loading ...</Text>
             </Fullscreen>
           }
-        >
-          <Scene />
+          >
+          <BvhPhysicsWorld>
+            <Scene />
+          </BvhPhysicsWorld>
         </Suspense>
       </Canvas>
-    </BvhPhysicsWorld>
   );
 }
 

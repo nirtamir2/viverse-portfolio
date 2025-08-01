@@ -5,6 +5,7 @@
     "@react-three/fiber": "9.3.0",
     "@react-three/uikit": "^0.8.21",
     "@react-three/viverse": "^0.1.11",
+    "@types/three": "^0.178.1",
     "@vitejs/plugin-react": "^4.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
