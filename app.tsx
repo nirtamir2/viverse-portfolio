@@ -14,23 +14,23 @@ import { Group, Object3D } from "three";
 export function App() {
   return (
     <Canvas
-    style={{ width: "100%", flexGrow: 1 }}
-    camera={{ fov: 90, position: [0, 2, 2] }}
-    shadows
-    gl={{ antialias: true, localClippingEnabled: true }}
+      style={{ width: "100%", flexGrow: 1 }}
+      camera={{ fov: 90, position: [0, 2, 2] }}
+      shadows
+      gl={{ antialias: true, localClippingEnabled: true }}
     >
-        <Suspense
-          fallback={
-            <Fullscreen alignItems="center" justifyContent="center">
-              <Text>Loading ...</Text>
-            </Fullscreen>
-          }
-          >
-          <BvhPhysicsWorld>
-            <Scene />
-          </BvhPhysicsWorld>
-        </Suspense>
-      </Canvas>
+      <Suspense
+        fallback={
+          <Fullscreen alignItems="center" justifyContent="center">
+            <Text>Loading ...</Text>
+          </Fullscreen>
+        }
+      >
+        <BvhPhysicsWorld>
+          <Scene />
+        </BvhPhysicsWorld>
+      </Suspense>
+    </Canvas>
   );
 }
 
@@ -61,14 +61,12 @@ export function Scene() {
       <ambientLight intensity={1} />
       <SimpleCharacter
         ref={characterRef}
-        model={
-          {
-            url: "avaturn_avatar.vrm",
-            type: "vrm",
-            castShadow: true,
-            receiveShadow: true,
-          }
-        }
+        model={{
+          url: "avaturn_avatar.vrm",
+          type: "vrm",
+          castShadow: true,
+          receiveShadow: true,
+        }}
       >
         <PlayerTag />
         <CharacterModelBone bone="rightHand">
@@ -119,6 +117,13 @@ export function Scene() {
           scale={[10, 0.5, 10]}
           position={[0.08, -2, 0]}
         />
+        <Gltf
+          scale={0.5}
+          position-y={-1.02}
+          position-x={-4.07}
+          src="/macbook.glb"
+        />
+        
       </FixedBvhPhysicsBody>
     </>
   );
