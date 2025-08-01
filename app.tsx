@@ -2,14 +2,15 @@ import { Gltf, Sky } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Fullscreen, Image, Root, Text } from "@react-three/uikit";
 import {
+  BvhPhysicsWorld,
   CharacterModelBone,
   FixedBvhPhysicsBody,
   PrototypeBox,
   SimpleCharacter,
-  BvhPhysicsWorld,
 } from "@react-three/viverse";
 import { Suspense, useRef } from "react";
 import { Group, Object3D } from "three";
+import { SomeText } from "./SomeText";
 
 export function App() {
   return (
@@ -114,7 +115,7 @@ export function Scene() {
         />
         <PrototypeBox
           color="#ffffff"
-          scale={[10, 0.5, 10]}
+          scale={[30, 0.5, 30]}
           position={[0.08, -2, 0]}
         />
         <Gltf
@@ -123,7 +124,6 @@ export function Scene() {
           position-x={-4.07}
           src="/macbook.glb"
         />
-        
       </FixedBvhPhysicsBody>
     </>
   );
