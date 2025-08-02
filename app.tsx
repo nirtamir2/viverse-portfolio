@@ -3,16 +3,11 @@ import {
   Caustics,
   ContactShadows,
   Environment,
-  Float,
   Gltf,
-  MeshDistortMaterial,
   MeshReflectorMaterial,
   MeshTransmissionMaterial,
-  MeshWobbleMaterial,
   Sky,
   Sphere,
-  Text3D,
-  Torus
 } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Fullscreen, Image, Root, Text } from "@react-three/uikit";
@@ -23,8 +18,8 @@ import {
   PrototypeBox,
   SimpleCharacter,
 } from "@react-three/viverse";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Color, Group, Object3D } from "three";
+import { Suspense, useRef, useState } from "react";
+import { Group, Object3D } from "three";
 
 export function App() {
   return (
@@ -51,8 +46,6 @@ export function App() {
 
 export function Scene() {
   const characterRef = useRef<Group>(null);
-  const [clicked, setClicked] = useState(false);
-  const [hovered, setHovered] = useState(false);
 
   useFrame(() => {
     if (characterRef.current == null) {
@@ -63,121 +56,115 @@ export function Scene() {
     }
   });
 
-  return <>
-    <ambientLight intensity={0.5} />
-    <directionalLight
-      intensity={1}
-      position={[10, 10, 5]}
-      castShadow
-      shadow-mapSize-width={1024}
-      shadow-mapSize-height={1024}
-      shadow-camera-left={-10}
-      shadow-camera-right={10}
-      shadow-camera-top={10}
-      shadow-camera-bottom={-10}
-    />
-    <directionalLight intensity={0.5} position={[-10, 10, -5]} />
-    <Environment preset="city" />
-    <Sky sunPosition={[100, 10, 100]} />
-    <ContactShadows
-      position={[0, -1.8, 0]}
-      opacity={0.4}
-      scale={20}
-      blur={1}
-      far={2}
-    />
-    <fog attach="fog" args={["#191920", 0, 15]} />
+  return (
+    <>
+      <ambientLight intensity={0.5} />
+      <directionalLight
+        intensity={1}
+        position={[10, 10, 5]}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+      <directionalLight intensity={0.5} position={[-10, 10, -5]} />
+      <Environment preset="city" />
+      <Sky sunPosition={[100, 10, 100]} />
+      <ContactShadows
+        position={[0, -1.8, 0]}
+        opacity={0.4}
+        scale={20}
+        blur={1}
+        far={2}
+      />
+      <fog attach="fog" args={["#191920", 0, 15]} />
 
-    <SimpleCharacter
-      ref={characterRef}
-      model={{
-        url: "avaturn_avatar.vrm",
-        type: "vrm",
-        castShadow: true,
-        receiveShadow: true,
-      }}
-      onClick={() => setClicked(!clicked)}
-      onPointerOver={() => {
-        setHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setHovered(false);
-        document.body.style.cursor = "auto";
-      }}
-    >
-      <PlayerTag />
-      <CharacterModelBone bone="rightHand">
-        <Gltf
-          scale={0.5}
-          scale-y={0.65}
-          position-y={-0.02}
-          position-x={0.07}
-          rotation-z={-(0.2 * Math.PI) / 2}
-          rotation-x={-(1 * Math.PI) / 2}
-          src="sword.gltf"
-        />
-      </CharacterModelBone>
-    </SimpleCharacter>
-    <FixedBvhPhysicsBody>
-      <group position={[0, -2, 0]}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[50, 50]} />
-          <MeshReflectorMaterial
-            blur={[300, 100]}
-            resolution={2048}
-            mixBlur={1}
-            mixStrength={80}
-            roughness={1}
-            depthScale={1.2}
-            minDepthThreshold={0.4}
-            maxDepthThreshold={1.4}
-            color="#050505"
-            metalness={0.5}
-          />
-        </mesh>
-      </group>
-      <PrototypeBox
-        color="#cccccc"
-        scale={[2, 1, 3]}
-        position={[3.91, 0, 0]}
-      />
-      <PrototypeBox
-        color="#ffccff"
-        scale={[3, 1, 3]}
-        position={[2.92, 1.5, -1.22]}
-      />
-      <PrototypeBox
-        color="#ccffff"
-        scale={[2, 0.5, 3]}
-        position={[1.92, 2.5, -3.22]}
-      />
-      <PrototypeBox
-        color="#ffccff"
-        scale={[2, 1, 3]}
-        position={[-2.92, 0, -2.22]}
-      />
-      <Box
-        scale={[1, 1, 4]}
-        position={[0.08, -1, 0]}
+      <SimpleCharacter
+        ref={characterRef}
+        model={{
+          url: "avaturn_avatar.vrm",
+          type: "vrm",
+          castShadow: true,
+          receiveShadow: true,
+        }}
       >
-        <MeshTransmissionMaterial
-          resolution={512}
-          distortion={0.25}
-          color="#ffffff"
-          thickness={1}
-          anisotropy={1}
+        <CharacterModelBone bone="rightHand">
+          <Gltf
+            scale={0.5}
+            scale-y={0.65}
+            position-y={-0.02}
+            position-x={0.07}
+            rotation-z={-(0.2 * Math.PI) / 2}
+            rotation-x={-(1 * Math.PI) / 2}
+            src="sword.gltf"
+          />
+        </CharacterModelBone>
+      </SimpleCharacter>
+      <FixedBvhPhysicsBody>
+        <group position={[0, -2, 0]}>
+          <mesh rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[50, 50]} />
+            <MeshReflectorMaterial
+              blur={[300, 100]}
+              resolution={2048}
+              mixBlur={1}
+              mixStrength={80}
+              roughness={1}
+              depthScale={1.2}
+              minDepthThreshold={0.4}
+              maxDepthThreshold={1.4}
+              color="#050505"
+              metalness={0.5}
+            />
+          </mesh>
+        </group>
+        <PrototypeBox
+          color="#cccccc"
+          scale={[2, 1, 3]}
+          position={[3.91, 0, 0]}
         />
-      </Box>
-      <Box scale={[4, 1, 1]} position={[0.08, 3.5, 0]}>
-        <MeshTransmissionMaterial
-            resolution={1024}
+        <PrototypeBox
+          color="#ffccff"
+          scale={[3, 1, 3]}
+          position={[2.92, 1.5, -1.22]}
+        />
+        <PrototypeBox
+          color="#ccffff"
+          scale={[2, 0.5, 3]}
+          position={[1.92, 2.5, -3.22]}
+        />
+        <PrototypeBox
+          color="#ffccff"
+          scale={[2, 1, 3]}
+          position={[-2.92, 0, -2.22]}
+        />
+        <Box scale={[1, 1, 4]} position={[0.08, -1, 0]}>
+          <MeshTransmissionMaterial
+            resolution={512}
             distortion={0.25}
             color="#ffffff"
             thickness={1}
             anisotropy={1}
           />
-      </Box>
+        </Box>
+
+        <Gltf
+          scale={0.5}
+          position-y={-1.02}
+          position-x={-4.07}
+          src="/macbook.glb"
+          onClick={() => window.open("https://github.com", "_blank")}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "auto")}
+        />
+        {/* <Animated3DText /> */}
+        {/* <FloatingGeometry /> */}
+        <InteractiveElements />
+      </FixedBvhPhysicsBody>
+
       <Caustics
         color="#ffffff"
         position={[0, -0.5, 0]}
@@ -210,10 +197,9 @@ export function Scene() {
         causticsOnly={false}
         backside={false}
       >
-        <mesh castShadow receiveShadow position={[-2, 0.5, -1]} scale={0.5}>
+        <mesh position={[-2, 0.5, -1]} scale={1}>
           <sphereGeometry args={[1, 64, 64]} />
           <MeshTransmissionMaterial
-            resolution={1024}
             distortion={0.25}
             color="#ffffff"
             thickness={1}
@@ -221,25 +207,12 @@ export function Scene() {
           />
         </mesh>
       </Caustics>
-      <Gltf
-        scale={0.5}
-        position-y={-1.02}
-        position-x={-4.07}
-        src="/macbook.glb"
-        onClick={() => window.open("https://github.com", "_blank")}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "auto")}
-      />
-      {/* <Animated3DText /> */}
-      {/* <FloatingGeometry /> */}
-      <InteractiveElements />
-    </FixedBvhPhysicsBody>
-  </>;
+    </>
+  );
 }
 
 function InteractiveElements() {
   const [scrollY, setScrollY] = useState(0);
-
 
   return (
     <>
