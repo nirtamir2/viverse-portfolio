@@ -1,8 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import { Fullscreen, Text } from "@react-three/uikit";
-import {
-  BvhPhysicsWorld,
-} from "@react-three/viverse";
 import { Suspense } from "react";
 import { Scene } from "./Scene";
 
@@ -21,12 +18,8 @@ export function App() {
           </Fullscreen>
         }
       >
-        <BvhPhysicsWorld>
-          <Scene />
-        </BvhPhysicsWorld>
+        <Scene />
       </Suspense>
     </Canvas>
   );
 }
-
-

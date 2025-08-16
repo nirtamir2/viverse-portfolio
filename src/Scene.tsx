@@ -12,13 +12,15 @@ import { useFrame } from "@react-three/fiber";
 import {
   SimpleCharacter,
   CharacterModelBone,
-  FixedBvhPhysicsBody,
+  BvhPhysicsBody,
   PrototypeBox,
+  BvhPhysicsWorld,
 } from "@react-three/viverse";
 import { useRef } from "react";
 import type { Group } from "three";
 import { Grid } from "./Grid";
 import { Animated3DText } from "./Animated3DText";
+import { AnyDo } from "./AnyDo";
 
 export function Scene() {
   const characterRef = useRef<Group>(null);
@@ -33,7 +35,7 @@ export function Scene() {
   });
 
   return (
-    <>
+    <BvhPhysicsWorld>
       <ambientLight intensity={0.5} />
       <directionalLight
         intensity={1}
@@ -79,8 +81,8 @@ export function Scene() {
           />
         </CharacterModelBone>
       </SimpleCharacter>
-      <Animated3DText></Animated3DText>  
-      <FixedBvhPhysicsBody>
+      <Animated3DText></Animated3DText>
+      <BvhPhysicsBody >
         <group position={[0, -2, 0]}>
           <mesh rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[50, 50]} />
@@ -140,7 +142,7 @@ export function Scene() {
         {/* <Animated3DText /> */}
         {/* <FloatingGeometry /> */}
         <Grid size={30} divisions={30} position={[0, -2, 0]} />
-      </FixedBvhPhysicsBody>
+      </BvhPhysicsBody>
 
       <Caustics
         color="#ffffff"
@@ -184,6 +186,7 @@ export function Scene() {
           />
         </mesh>
       </Caustics>
+      <AnyDo></AnyDo>
       <Caustics
         position={[8, -0.5, -1]}
         color={[1, 0.8, 0.8]}
@@ -199,6 +202,6 @@ export function Scene() {
           <MeshTransmissionMaterial color="white" />
         </mesh>
       </Caustics>
-    </>
+    </BvhPhysicsWorld>
   );
 }
