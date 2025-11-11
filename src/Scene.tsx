@@ -1,26 +1,25 @@
 import {
-  Environment,
-  Sky,
+  Box,
+  Caustics,
   ContactShadows,
+  Environment,
   Gltf,
   MeshReflectorMaterial,
-  Box,
   MeshTransmissionMaterial,
-  Caustics,
+  Sky,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
-  SimpleCharacter,
-  CharacterModelBone,
   BvhPhysicsBody,
-  PrototypeBox,
   BvhPhysicsWorld,
+  PrototypeBox,
+  SimpleCharacter
 } from "@react-three/viverse";
 import { Suspense, useRef } from "react";
 import type { Group } from "three";
-import { Grid } from "./Grid";
 import { Animated3DText } from "./Animated3DText";
 import { AnyDo } from "./AnyDo";
+import { Grid } from "./Grid";
 
 export function Scene() {
   const characterRef = useRef<Group>(null);
