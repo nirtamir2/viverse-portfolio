@@ -16,7 +16,7 @@ import {
   PrototypeBox,
   BvhPhysicsWorld,
 } from "@react-three/viverse";
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import type { Group } from "three";
 import { Grid } from "./Grid";
 import { Animated3DText } from "./Animated3DText";
@@ -60,29 +60,22 @@ export function Scene() {
       />
       {/* <fog attach="fog" args={["#191920", 0, 15]} /> */}
 
-      <SimpleCharacter
-        ref={characterRef}
-        model={{
-          url: "avaturn_avatar.vrm",
-          type: "vrm",
-          castShadow: true,
-          receiveShadow: true,
-        }}
-      >
-        <CharacterModelBone bone="rightHand">
-          <Gltf
-            scale={0.5}
-            scale-y={0.65}
-            position-y={-0.02}
-            position-x={0.07}
-            rotation-z={-(0.2 * Math.PI) / 2}
-            rotation-x={-(1 * Math.PI) / 2}
-            src="sword.gltf"
-          />
-        </CharacterModelBone>
-      </SimpleCharacter>
+      <Suspense fallback={null}>
+        <SimpleCharacter
+          inputOptions={{
+            keyboardMoveForwardKeys: ["ArrowUp", "w"],
+            keyboardMoveBackwardKeys: ["ArrowDown", "s"],
+            keyboardMoveLeftKeys: ["ArrowLeft", "a"],
+            keyboardMoveRightKeys: ["ArrowRight", "d"],
+          }}
+          ref={characterRef}
+          model={{
+            url: "avatar.vrm",
+          }}
+        ></SimpleCharacter>
+      </Suspense>
       <Animated3DText></Animated3DText>
-      <BvhPhysicsBody >
+      <BvhPhysicsBody>
         <group position={[0, -2, 0]}>
           <mesh rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[50, 50]} />
