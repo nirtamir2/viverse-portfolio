@@ -13,7 +13,7 @@ import {
   BvhPhysicsBody,
   BvhPhysicsWorld,
   PrototypeBox,
-  SimpleCharacter
+  SimpleCharacter,
 } from "@react-three/viverse";
 import { Suspense, useRef } from "react";
 import type { Group } from "three";
@@ -62,10 +62,10 @@ export function Scene() {
       <Suspense fallback={null}>
         <SimpleCharacter
           inputOptions={{
-            keyboardMoveForwardKeys: ["ArrowUp", "w"],
-            keyboardMoveBackwardKeys: ["ArrowDown", "s"],
-            keyboardMoveLeftKeys: ["ArrowLeft", "a"],
-            keyboardMoveRightKeys: ["ArrowRight", "d"],
+            keyboardMoveForwardKeys: ["ArrowUp", "KeyW"],
+            keyboardMoveBackwardKeys: ["ArrowDown", "KeyS"],
+            keyboardMoveLeftKeys: ["ArrowLeft", "KeyA"],
+            keyboardMoveRightKeys: ["ArrowRight", "KeyD"],
           }}
           ref={characterRef}
           model={{
