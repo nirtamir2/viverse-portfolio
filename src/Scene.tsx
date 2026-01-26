@@ -11,9 +11,8 @@ import { Bubble } from "./Bubble";
 import { CompaniesTimeline } from "./CompaniesTimeline";
 import { CustomText3D } from "./CustomText3D";
 import { Floor } from "./Floor";
-import { GlassSign } from "./GlassSign";
+import { Playground } from "./Playground";
 import { TechStack } from "./TechStack";
-import { TransparentBox } from "./TransparentBox";
 
 export function Scene() {
   const characterRef = useRef<Group>(null);
@@ -29,29 +28,19 @@ export function Scene() {
 
   return (
     <BvhPhysicsWorld>
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        intensity={1}
-        position={[10, 10, 5]}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-      />
-      <directionalLight intensity={0.5} position={[-10, 10, -5]} />
+      <ambientLight intensity={0.7} />
+      <directionalLight intensity={0.6} position={[10, 15, 5]} />
+      <directionalLight intensity={0.3} position={[-10, 10, -5]} />
       <Environment preset="city" />
-      <Sky sunPosition={[100, 10, 100]} />
+      <Sky sunPosition={[100, 20, 100]} />
       <ContactShadows
-        position={[0, -1.8, 0]}
-        opacity={0.4}
-        scale={20}
-        blur={1}
-        far={2}
+        position={[0, -1.9, 0]}
+        opacity={0.25}
+        scale={25}
+        blur={2}
+        far={3}
+        frames={1}
       />
-      {/* <fog attach="fog" args={["#191920", 0, 15]} /> */}
 
       <Suspense fallback={null}>
         <SimpleCharacter
@@ -65,44 +54,36 @@ export function Scene() {
           model={{
             url: "avatar.vrm",
           }}
-        ></SimpleCharacter>
+        />
       </Suspense>
-      {/* <Animated3DText></Animated3DText> */}
+
       <BvhPhysicsBody>
         <group position={[0, -2, 0]}>
           <Floor />
         </group>
-        <TransparentBox scale={[2, 1, 3]} position={[3.91, 0, 0]} />
-        <TransparentBox scale={[2, 0.5, 3]} position={[1.92, 2.5, -3.22]} />
-
-        <TransparentBox scale={[1, 1, 4]} position={[0.08, -1, 0]} />
-        <TransparentBox scale={[2, 1, 3]} position={[0, 0.5, -2.22]} />
-
+        <Playground />
         <Gltf
           scale={0.5}
-          position-y={-1.02}
-          position-x={-4.07}
+          position={[-4, -1.02, 0]}
           src="/macbook.glb"
-          // onClick={() => window.open("https://github.com", "_blank")}
-          // onPointerOver={() => (document.body.style.cursor = "pointer")}
-          // onPointerOut={() => (document.body.style.cursor = "auto")}
         />
-        {/* <Animated3DText /> */}
-        {/* <FloatingGeometry /> */}
-        {/* <Grid size={30} divisions={30} position={[0, -2, 0]} /> */}
       </BvhPhysicsBody>
-      <group position={[-2, 4, -8]} scale={0.5}>
+
+      {/* Name */}
+      <group position={[-2, 3, -6]} scale={0.4}>
         <CustomText3D text="Nir Tamir" />
       </group>
-      <Bubble position={[0, -0.5, 0]} />
-      <Bubble position={[8, -0.5, -1]} />
 
-      {/* Career Journey - Company logos timeline */}
+      {/* Just a couple floating bubbles for accent */}
+      <Bubble position={[6, 2, 5]} size={0.5} color="#a8d8ea" />
+      <Bubble position={[-5, 2.5, 6]} size={0.4} color="#fcbad3" />
+
+      {/* Companies */}
       <Suspense fallback={null}>
         <CompaniesTimeline />
       </Suspense>
 
-      {/* Skills - Tech stack logos */}
+      {/* Tech */}
       <Suspense fallback={null}>
         <TechStack />
       </Suspense>

@@ -1,51 +1,39 @@
-import { Gltf, Float, Text, MeshTransmissionMaterial } from "@react-three/drei";
+import { Gltf, Text } from "@react-three/drei";
 import { type GroupProps } from "@react-three/fiber";
 
 interface PlaygroundItemProps extends GroupProps {
   src: string;
   label?: string;
   logoScale?: number;
-  floatLogo?: boolean;
-  showGlassLabel?: boolean;
+  showLabel?: boolean;
 }
 
 export function PlaygroundItem({
   src,
   label,
   logoScale = 1,
-  floatLogo = true,
-  showGlassLabel = true,
+  showLabel = true,
   ...props
 }: PlaygroundItemProps) {
-  const logoContent = <Gltf src={src} scale={logoScale} />;
-
   return (
     <group {...props}>
-      {/* Logo - optionally floating */}
-      {floatLogo ? (
-        <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.3}>
-          {logoContent}
-        </Float>
-      ) : (
-        logoContent
-      )}
+      {/* Logo */}
+      <Gltf src={src} scale={logoScale} />
 
-      {/* Small glass label below the logo */}
-      {showGlassLabel && label && (
-        <group position={[0, -1.2, 0]}>
-          {/* Glass panel */}
+      {/* Simple label below the logo */}
+      {showLabel && label && (
+        <group position={[0, -1, 0]}>
           <mesh>
-            <boxGeometry args={[2.5, 0.4, 0.05]} />
-            <meshMatcapMaterial color="black" />
+            <planeGeometry args={[2.2, 0.35]} />
+            <meshBasicMaterial color="#111111" transparent opacity={0.8} />
           </mesh>
-          {/* Label text */}
           <Text
-            position={[0, 0, 0.05]}
-            fontSize={0.15}
+            position={[0, 0, 0.01]}
+            fontSize={0.12}
             color="#ffffff"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.3}
+            maxWidth={2}
           >
             {label}
           </Text>
