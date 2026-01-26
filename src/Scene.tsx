@@ -8,8 +8,10 @@ import {
 import { Suspense, useRef } from "react";
 import type { Group } from "three";
 import { Bubble } from "./Bubble";
+import { CompaniesTimeline } from "./CompaniesTimeline";
 import { CustomText3D } from "./CustomText3D";
 import { Floor } from "./Floor";
+import { TechStack } from "./TechStack";
 import { TransparentBox } from "./TransparentBox";
 
 export function Scene() {
@@ -94,7 +96,15 @@ export function Scene() {
       <Bubble position={[0, -0.5, 0]} />
       <Bubble position={[8, -0.5, -1]} />
 
-      {/* <AnyDo></AnyDo> */}
+      {/* Company logos - work history timeline */}
+      <Suspense fallback={null}>
+        <CompaniesTimeline />
+      </Suspense>
+
+      {/* Tech stack logos */}
+      <Suspense fallback={null}>
+        <TechStack />
+      </Suspense>
     </BvhPhysicsWorld>
   );
 }
