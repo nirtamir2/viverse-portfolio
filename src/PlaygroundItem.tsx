@@ -1,56 +1,23 @@
-import { Gltf, Text3D, Float } from "@react-three/drei";
+import { Gltf, Float, Text, MeshTransmissionMaterial } from "@react-three/drei";
 import { type GroupProps } from "@react-three/fiber";
 
 interface PlaygroundItemProps extends GroupProps {
   src: string;
-  label: string;
-  labelPosition?: "front" | "back" | "left" | "right";
-  labelOffset?: number;
+  label?: string;
   logoScale?: number;
-  labelScale?: number;
   floatLogo?: boolean;
+  showGlassLabel?: boolean;
 }
 
 export function PlaygroundItem({
   src,
   label,
-  labelPosition = "front",
-  labelOffset = 1.5,
   logoScale = 1,
-  labelScale = 0.15,
   floatLogo = true,
+  showGlassLabel = true,
   ...props
 }: PlaygroundItemProps) {
-  // Calculate label position based on direction
-  const getLabelPos = (): [number, number, number] => {
-    switch (labelPosition) {
-      case "front":
-        return [0, 0.1, labelOffset];
-      case "back":
-        return [0, 0.1, -labelOffset];
-      case "left":
-        return [-labelOffset, 0.1, 0];
-      case "right":
-        return [labelOffset, 0.1, 0];
-    }
-  };
-
-  const getLabelRotation = (): [number, number, number] => {
-    switch (labelPosition) {
-      case "front":
-        return [-Math.PI / 2, 0, 0];
-      case "back":
-        return [-Math.PI / 2, 0, Math.PI];
-      case "left":
-        return [-Math.PI / 2, 0, Math.PI / 2];
-      case "right":
-        return [-Math.PI / 2, 0, -Math.PI / 2];
-    }
-  };
-
-  const logoContent = (
-    <Gltf src={src} scale={logoScale} />
-  );
+  const logoContent = <Gltf src={src} scale={logoScale} />;
 
   return (
     <group {...props}>
@@ -63,18 +30,27 @@ export function PlaygroundItem({
         logoContent
       )}
 
-      {/* 3D Text label on the floor */}
-      <Text3D
-        font="/font/Inter_Regular.json"
-        position={getLabelPos()}
-        rotation={getLabelRotation()}
-        size={0.3}
-        height={0.05}
-        scale={labelScale}
-      >
-        {label}
-        <meshStandardMaterial color="#ffffff" />
-      </Text3D>
+      {/* Small glass label below the logo */}
+      {showGlassLabel && label && (
+        <group position={[0, -1.2, 0]}>
+          {/* Glass panel */}
+          <mesh>
+            <boxGeometry args={[2.5, 0.4, 0.05]} />
+            <meshMatcapMaterial color="black" />
+          </mesh>
+          {/* Label text */}
+          <Text
+            position={[0, 0, 0.05]}
+            fontSize={0.15}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="middle"
+            maxWidth={2.3}
+          >
+            {label}
+          </Text>
+        </group>
+      )}
     </group>
   );
 }

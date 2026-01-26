@@ -43,9 +43,6 @@ export function TechStack() {
           label={tech.name}
           position={tech.position}
           logoScale={0.4}
-          labelScale={0.1}
-          labelPosition="front"
-          labelOffset={1.2}
         />
       ))}
     </group>

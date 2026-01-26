@@ -48,12 +48,9 @@ export function CompaniesTimeline() {
         <PlaygroundItem
           key={company.name}
           src={company.src}
-          label={`${company.name} | ${company.period}`}
+          label={`${company.name} (${company.period})`}
           position={company.position}
           logoScale={0.6}
-          labelScale={0.12}
-          labelPosition="front"
-          labelOffset={2}
         />
       ))}
     </group>

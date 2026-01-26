@@ -11,7 +11,7 @@ import { Bubble } from "./Bubble";
 import { CompaniesTimeline } from "./CompaniesTimeline";
 import { CustomText3D } from "./CustomText3D";
 import { Floor } from "./Floor";
-import { SectionHeader } from "./SectionHeader";
+import { GlassSign } from "./GlassSign";
 import { TechStack } from "./TechStack";
 import { TransparentBox } from "./TransparentBox";
 
@@ -99,29 +99,11 @@ export function Scene() {
 
       {/* Career Journey - Company logos timeline */}
       <Suspense fallback={null}>
-        <SectionHeader
-          text="Career Journey"
-          position={[-10, 3, -15]}
-          rotation={[0, 0, 0]}
-          color="#6bffb3"
-        />
         <CompaniesTimeline />
       </Suspense>
 
       {/* Skills - Tech stack logos */}
       <Suspense fallback={null}>
-        <SectionHeader
-          text="Frontend Skills"
-          position={[6, 3, 3]}
-          rotation={[0, -0.3, 0]}
-          color="#ff6b9d"
-        />
-        <SectionHeader
-          text="Tools & Backend"
-          position={[-18, 3, 3]}
-          rotation={[0, 0.3, 0]}
-          color="#6b9dff"
-        />
         <TechStack />
       </Suspense>
     </BvhPhysicsWorld>
