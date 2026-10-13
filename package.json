@@ -1,29 +1,51 @@
 {
   "type": "module",
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.51.1",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "9.4.0",
-    "@react-three/uikit": "^1.0.59",
-    "@react-three/viverse": "^0.1.20",
-    "@types/three": "^0.181.0",
-    "@vitejs/plugin-react": "^5.1.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "three": "^0.181.1",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "9.8.1",
+    "@react-three/viverse": "^0.2.29",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.186.1",
     "three-stdlib": "^2.36.1"
   },
   "devDependencies": {
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "vite": "^7.2.2"
+    "@dotenvx/dotenvx": "^2.34.2",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.4"
   },
   "scripts": {
     "dev": "vite --host",
-    "check:eslint": "eslint \"*.{ts,tsx}\"",
-    "fix:eslint": "eslint \"*.{ts,tsx}\" --fix",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "check:format": "prettier --check src/App.tsx src/components src/game src/portfolio.ts src/styles.css package.json vite.config.ts index.html",
+    "fix:format": "prettier --write src/App.tsx src/components src/game src/portfolio.ts src/styles.css package.json vite.config.ts index.html",
     "deploy": "dotenvx run -f .env.production -- sh -c 'viverse-cli app publish ./dist --app-id $VITE_VIVERSE_APP_ID'",
-    "build": "vite build"
+    "check": "pnpm typecheck && pnpm test && pnpm check:format"
   },
-  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
+  "name": "nir-tamir-playground",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss@<8.5.23": "^8.5.30",
+      "nanoid@>=3 <3.3.18": "^3.3.20",
+      "fflate@>=0.6 <0.6.11": "^0.6.11",
+      "source-map-js@<1.2.2": "^1.2.2",
+      "yaml@>=2 <2.8.3": "^2.8.3"
+    }
+  }
 }

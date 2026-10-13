@@ -1,12 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nir Tamir | Interactive 3D Portfolio</title>
+    <meta
+      name="description"
+      content="Take a drive through Nir Tamir’s little world. Explore frontend projects, open source, writing, and a playful 3D portfolio."
+    />
+    <meta name="theme-color" content="#f5f2e9" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script async type="module" src="./src/index.tsx"></script>
-</head>
-<body style="touch-action: none; margin: 0; position: relative; width: 100dvw; height: 100dvh; overflow: hidden;">
-    <div id="root" style="position: absolute; inset: 0; display: flex; flex-direction: column;"></div>
-</body>
+  </head>
+  <body
+    style="
+      margin: 0;
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+    "
+  >
+    <div
+      id="root"
+      style="
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+      "
+    ></div>
+    <noscript
+      >Visit <a href="https://www.nirtamir.com">Nir Tamir’s portfolio</a> to
+      explore projects, writing, and experience.</noscript
+    >
+  </body>
 </html>
