@@ -1,12 +1,12 @@
 import { Gltf, Text } from "@react-three/drei";
-import { type GroupProps } from "@react-three/fiber";
+import { type ThreeElements } from "@react-three/fiber";
 
-interface PlaygroundItemProps extends GroupProps {
+type PlaygroundItemProps = ThreeElements["group"] & {
   src: string;
   label?: string;
   logoScale?: number;
   showLabel?: boolean;
-}
+};
 
 export function PlaygroundItem({
   src,

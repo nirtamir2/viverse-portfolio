@@ -1,12 +1,16 @@
 import { Sphere } from "@react-three/drei";
-import { type GroupProps } from "@react-three/fiber";
+import { type ThreeElements } from "@react-three/fiber";
 
-interface BubbleProps extends GroupProps {
+type BubbleProps = ThreeElements["group"] & {
   size?: number;
   color?: string;
-}
+};
 
-export function Bubble({ size = 0.5, color = "#aaeeff", ...props }: BubbleProps) {
+export function Bubble({
+  size = 0.5,
+  color = "#aaeeff",
+  ...props
+}: BubbleProps) {
   return (
     <group {...props}>
       <Sphere args={[size, 16, 16]}>
