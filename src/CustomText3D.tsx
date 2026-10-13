@@ -8,6 +8,8 @@ export function CustomText3D(props: Props) {
   return (
     <Text3D
       font="/font/Inter_Regular.json"
+      curveSegments={4}
+      bevelSegments={1}
       bevelEnabled
       bevelSize={0.04}
       bevelThickness={0.05}
@@ -17,7 +19,7 @@ export function CustomText3D(props: Props) {
     >
       {text}
       <MeshDistortMaterial
-        color="#6bffb3ff"
+        color="#6bffb3"
         transparent
         opacity={0.95}
         distort={0.3}
