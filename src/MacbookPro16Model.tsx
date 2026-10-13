@@ -27,7 +27,7 @@ type GLTFResult = GLTF & {
 };
 
 export function MacbookPro16Model(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF("/macbook.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF("/macbook.glb") as unknown as GLTFResult;
   const isClosed = false;
   const rotateX = isClosed ? Math.PI / 2 : 0;
   return (
